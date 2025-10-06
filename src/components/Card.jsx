@@ -1,23 +1,51 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import pokeballIcon from "../assets/Poke_ball_icon.svg";
+
+function cacheKey(id) {
+  return `pokemon_${id}`;
+}
+
+function checkCache(id) {
+  const cached = localStorage.getItem(cacheKey(id));
+  return cached ? JSON.parse(cached) : null;
+}
+
+function addToCache(id, data) {
+  localStorage.setItem(cacheKey(id), JSON.stringify(data));
+}
 
 export default function Card({ id, isFlipped, onFlip, found }) {
-  //const [isFlipped, setIsFlipped] = useState(false);
   const [pokemonData, setPokemonData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
+    async function fetchPokemonData() {
+      setLoading(true);
+
+      // Check cache first
+      const cachedData = checkCache(id);
+      if (cachedData) {
+        setPokemonData(cachedData);
+        setLoading(false);
+        return;
+      }
+
+      // If not in cache, fetch from API
+      try {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+        const data = await response.json();
+
+        // Cache the data
+        addToCache(id, data);
         setPokemonData(data);
-        setLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error fetching Pokémon:", error);
-        setLoading(false);
-      });
+      }
+      setLoading(false);
+    }
+
+    fetchPokemonData();
   }, [id]);
 
   return (
@@ -44,11 +72,7 @@ export default function Card({ id, isFlipped, onFlip, found }) {
         </div>
       ) : (
         <div className="card-back">
-          <img
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png"
-            className="cardBack"
-            alt="Pokeball"
-          />
+          <img src={pokeballIcon} className="cardBack" alt="Pokeball" />
         </div>
       )}
     </div>
