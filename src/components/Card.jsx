@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 
-export default function Card({ id, isFlipped, onFlip }) {
+export default function Card({ id, isFlipped, onFlip, found }) {
   //const [isFlipped, setIsFlipped] = useState(false);
   const [pokemonData, setPokemonData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -21,23 +21,35 @@ export default function Card({ id, isFlipped, onFlip }) {
   }, [id]);
 
   return (
-    <div className={`card ${isFlipped ? "flipped" : ""}`} onClick={onFlip}>
+    <div
+      className={`card ${isFlipped ? "flipped" : ""} ${found ? "found" : ""}`}
+      onClick={onFlip}
+    >
       {isFlipped ? (
-        <div className="card-front">
-          {loading ? (
-            <div>Loading...</div>
-          ) : (
-            <>
-              <h2>{pokemonData.name}</h2>
-              <img
-                src={pokemonData.sprites.front_default}
-                alt={`Pokemon ${id}`}
-              />
-            </>
-          )}
+        <div className="card-inner">
+          <div className="card-front">
+            {loading ? (
+              <div>Loading...</div>
+            ) : (
+              <>
+                <h3>{pokemonData.name}</h3>
+                <img
+                  src={pokemonData.sprites.front_default}
+                  alt={`Pokemon ${id}`}
+                />
+                <p className="type">type: {pokemonData.types[0].type.name}</p>
+              </>
+            )}
+          </div>
         </div>
       ) : (
-        <div className="card-back">?</div>
+        <div className="card-back">
+          <img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png"
+            className="cardBack"
+            alt="Pokeball"
+          />
+        </div>
       )}
     </div>
   );
