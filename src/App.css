@@ -43,6 +43,21 @@
     padding: 2em;
     border-radius: 2px;
     border: 1px solid #ccc;
+    box-shadow: 1ch 2px 4px rgba(0, 0, 0, 0.1);
+    width: 120px;
+    height: 160px;
+    position: relative;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: monospace;
 }
 
 .read-the-docs {
