@@ -33,9 +33,7 @@ export default function Card({ id, isFlipped, onFlip, found, cardBack }) {
 
       // If not in cache, fetch from API
       try {
-        const response = await fetch(
-          `http://werdna.duckdns.org:6969/api/v2/pokemon/${id}`,
-        );
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
         const data = await response.json();
 
         // Cache the data
