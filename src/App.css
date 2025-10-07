@@ -215,17 +215,17 @@ h1 {
     }
 }
 
-.card p {
+.card p.type {
     margin: 0.25rem 0;
-    font-size: 0.9rem;
+    font-size: 0.65rem;
     color: rgba(255, 255, 255, 0.8);
-    font-family: "Raleway", sans-serif;
+    font-family: "Victor Mono", monospace;
     font-weight: 500;
 }
 
 @media (max-width: 480px) {
-    .card p {
-        font-size: 0.7rem;
+    .card p.type {
+        font-size: 0.5rem;
         margin: 0.125rem 0;
     }
 }
