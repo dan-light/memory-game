@@ -83,6 +83,8 @@ export default function GameManager() {
       key: crypto.randomUUID(),
     }));
     makeBoard(newCards);
+    setMoves(0);
+    setFlippedCards([]);
   }, [gens]);
 
   useEffect(() => {
