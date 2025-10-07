@@ -15,6 +15,11 @@ const genIdRanges = {
   gen9: { start: 906, end: 1025 }, // Pokémon Scarlet/Violet
 };
 
+const cardBacks = {
+  pokeball: "/src/assets/Poke_ball_icon.svg",
+  gymbadge: "/src/assets/gymbadge.png",
+};
+
 function getRandomPokemonId(gens) {
   // Get all enabled generation ranges
   const enabledRanges = Object.entries(gens)
@@ -55,6 +60,7 @@ export default function GameManager() {
     gen8: true,
     gen9: true,
   });
+  const [selectedCardBack, setSelectedCardBack] = useState("pokeball");
 
   // Debug log whenever gens changes
   useEffect(() => {
@@ -166,7 +172,12 @@ export default function GameManager() {
       <Stack gap="m" align="center">
         <div className="hArea">
           <h1>PokeMatch</h1>
-          <PrefPane gens={gens} onGenChange={setGens} />
+          <PrefPane
+            gens={gens}
+            onGenChange={setGens}
+            cardBacks={cardBacks}
+            onCardBackChange={setSelectedCardBack}
+          />
         </div>
         <Paper p="md" radius="lg" className="card-container">
           {board.map((card) => (
@@ -176,6 +187,9 @@ export default function GameManager() {
               isFlipped={card.flipped || card.found}
               found={card.found}
               onFlip={() => handleFlip(card.key)}
+              cardBack={
+                cardBacks[selectedCardBack] || "/src/assets/Poke_ball_icon.svg"
+              }
             />
           ))}
         </Paper>

@@ -15,7 +15,7 @@ function addToCache(id, data) {
   localStorage.setItem(cacheKey(id), JSON.stringify(data));
 }
 
-export default function Card({ id, isFlipped, onFlip, found }) {
+export default function Card({ id, isFlipped, onFlip, found, cardBack }) {
   const [pokemonData, setPokemonData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -80,7 +80,11 @@ export default function Card({ id, isFlipped, onFlip, found }) {
         </div>
       ) : (
         <div className="card-back">
-          <img src={pokeballIcon} className="cardBack" alt="Pokeball" />
+          <img
+            src={cardBack || pokeballIcon}
+            className="cardBack"
+            alt="Card Back"
+          />
         </div>
       )}
     </div>
