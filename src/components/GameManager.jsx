@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import { Container, Title, Group, Text, Paper, Stack } from "@mantine/core";
 import PrefPane from "./PrefPane";
 import Card from "./Card";
-
 const genIdRanges = {
   gen1: { start: 1, end: 151 }, // Pokémon Red/Blue/Yellow
   gen2: { start: 152, end: 251 }, // Pokémon Gold/Silver/Crystal
@@ -10,6 +10,9 @@ const genIdRanges = {
   gen4: { start: 387, end: 493 }, // Pokémon Diamond/Pearl/Platinum
   gen5: { start: 494, end: 649 }, // Pokémon Black/White
   gen6: { start: 650, end: 721 }, // Pokémon X/Y
+  gen7: { start: 722, end: 809 }, // Pokémon Sun/Moon, Ultra Sun/Ultra Moon
+  gen8: { start: 810, end: 905 }, // Pokémon Sword/Shield, Legends: Arceus
+  gen9: { start: 906, end: 1025 }, // Pokémon Scarlet/Violet
 };
 
 function getRandomPokemonId(gens) {
@@ -48,6 +51,9 @@ export default function GameManager() {
     gen4: true,
     gen5: true,
     gen6: true,
+    gen7: true,
+    gen8: true,
+    gen9: true,
   });
 
   // Debug log whenever gens changes
@@ -156,25 +162,37 @@ export default function GameManager() {
   }
 
   return (
-    <div>
-      <h1>PokeMatch</h1>
-      <div className="card-container">
-        {board.map((card) => (
-          <Card
-            key={card.key}
-            id={card.id}
-            isFlipped={card.flipped || card.found}
-            found={card.found}
-            onFlip={() => handleFlip(card.key)}
-          />
-        ))}
-      </div>
-      <div className="game-stats">
-        <p>Score: {score}</p>
-        <p>Moves: {moves}</p>
-        {gameOver && <h2>Congratulations! Game Complete!</h2>}
-      </div>
-      <PrefPane gens={gens} onGenChange={setGens} />
-    </div>
+    <Container size="lg" py="xl">
+      <Stack gap="m" align="center">
+        <div className="hArea">
+          <h1>PokeMatch</h1>
+          <PrefPane gens={gens} onGenChange={setGens} />
+        </div>
+        <Paper p="md" radius="lg" className="card-container">
+          {board.map((card) => (
+            <Card
+              key={card.key}
+              id={card.id}
+              isFlipped={card.flipped || card.found}
+              found={card.found}
+              onFlip={() => handleFlip(card.key)}
+            />
+          ))}
+        </Paper>
+        <Group gap="xl" justify="center">
+          <Text size="xl" fw={700}>
+            Score: {score}
+          </Text>
+          <Text size="xl" fw={700}>
+            Moves: {moves}
+          </Text>
+        </Group>
+        {gameOver && (
+          <Title order={2} c="green.6">
+            Congratulations! Game Complete!
+          </Title>
+        )}
+      </Stack>
+    </Container>
   );
 }

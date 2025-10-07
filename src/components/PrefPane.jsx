@@ -1,9 +1,18 @@
+import {
+  Drawer,
+  Button,
+  Checkbox,
+  Switch,
+  Stack,
+  Title,
+  Text,
+  ActionIcon,
+} from "@mantine/core";
+
+import { IconSettings } from "@tabler/icons-react";
+import { useEffect, useState } from "react";
 export default function PrefPane({ gens, onGenChange }) {
-  // Safety check - if gens is undefined
-  if (!gens) {
-    console.log("PrefPane: gens is undefined!");
-    return null;
-  }
+  const [opened, setOpened] = useState(false);
 
   function handleGenChange(genKey) {
     const newGens = {
@@ -14,59 +23,149 @@ export default function PrefPane({ gens, onGenChange }) {
   }
 
   return (
-    <div>
-      <h2>Preferences</h2>
-      <div className="pref-item">
-        <h3>Generations to Include</h3>
-        <label>
-          <input
-            type="checkbox"
-            checked={gens.gen1}
-            onChange={() => handleGenChange("gen1")}
-          />
-          Gen 1
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={gens.gen2}
-            onChange={() => handleGenChange("gen2")}
-          />
-          Gen 2
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={gens.gen3}
-            onChange={() => handleGenChange("gen3")}
-          />
-          Gen 3
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={gens.gen4}
-            onChange={() => handleGenChange("gen4")}
-          />
-          Gen 4
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={gens.gen5}
-            onChange={() => handleGenChange("gen5")}
-          />
-          Gen 5
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={gens.gen6}
-            onChange={() => handleGenChange("gen6")}
-          />
-          Gen 6
-        </label>
-      </div>
-    </div>
+    <>
+      <ActionIcon variant="default" size="42" onClick={() => setOpened(true)}>
+        <IconSettings />
+      </ActionIcon>
+      <Drawer
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title={<Title order={2}>Preferences</Title>}
+        padding="md"
+        size="xs"
+        position="right"
+        zIndex={1000}
+        withOverlay
+        withinPortal
+        lockScroll
+        styles={{
+          content: {
+            minWidth: "300px",
+          },
+        }}
+      >
+        <Title order={4}>Generations to Include</Title>
+        <br></br>
+        <Stack>
+          <div>
+            <Switch
+              label="Gen 1"
+              checked={gens.gen1}
+              onChange={() => handleGenChange("gen1")}
+              size="md"
+              radius="xs"
+              color="cyan"
+            />
+            <Text size="sm" fs="italic" c="dimmed">
+              Red, Blue & Yellow
+            </Text>
+          </div>
+          <div>
+            <Switch
+              label="Gen 2"
+              checked={gens.gen2}
+              onChange={() => handleGenChange("gen2")}
+              size="md"
+              radius="xs"
+              color="cyan"
+            />
+            <Text size="sm" fs="italic" c="dimmed">
+              Gold, Silver & Crystal
+            </Text>
+          </div>
+          <div>
+            <Switch
+              label="Gen 3"
+              checked={gens.gen3}
+              onChange={() => handleGenChange("gen3")}
+              size="md"
+              radius="xs"
+              color="cyan"
+            />
+            <Text size="sm" fs="italic" c="dimmed">
+              Ruby, Sapphire & Emerald
+            </Text>
+          </div>
+          <div>
+            <Switch
+              label="Gen 4"
+              checked={gens.gen4}
+              onChange={() => handleGenChange("gen4")}
+              size="md"
+              radius="xs"
+              color="cyan"
+            />
+            <Text size="sm" fs="italic" c="dimmed">
+              Diamond, Pearl & Platinum
+            </Text>
+          </div>
+          <div>
+            <Switch
+              label="Gen 5"
+              checked={gens.gen5}
+              onChange={() => handleGenChange("gen5")}
+              size="md"
+              radius="xs"
+              color="cyan"
+            />
+            <Text size="sm" fs="italic" c="dimmed">
+              Black & White
+            </Text>
+          </div>
+          <div>
+            <Switch
+              label="Gen 6"
+              checked={gens.gen6}
+              onChange={() => handleGenChange("gen6")}
+              size="md"
+              radius="xs"
+              color="cyan"
+            />
+            <Text size="sm" fs="italic" c="dimmed">
+              X & Y
+            </Text>
+          </div>
+          <div>
+            <Switch
+              label="Gen 7"
+              checked={gens.gen7}
+              onChange={() => handleGenChange("gen7")}
+              size="md"
+              radius="xs"
+              color="cyan"
+            />
+            <Text size="sm" fs="italic" c="dimmed">
+              Sun, Moon, Ultra Sun & Ultra Moon
+            </Text>
+          </div>
+          <div>
+            <Switch
+              label="Gen 8"
+              checked={gens.gen8}
+              onChange={() => handleGenChange("gen8")}
+              size="md"
+              radius="xs"
+              color="cyan"
+            />
+            <Text size="sm" fs="italic" c="dimmed">
+              Sword, Shield & Legends: Arceus
+            </Text>
+          </div>
+          <div>
+            <Switch
+              label="Gen 9"
+              checked={gens.gen9}
+              onChange={() => handleGenChange("gen9")}
+              size="md"
+              radius="xs"
+              color="cyan"
+            />
+            <Text size="sm" fs="italic" c="dimmed">
+              Scarlet & Violet
+            </Text>
+          </div>
+        </Stack>
+      </Drawer>
+    </>
   );
 }
