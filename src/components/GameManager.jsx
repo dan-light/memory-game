@@ -174,7 +174,7 @@ export default function GameManager() {
   }
 
   return (
-    <Container size="lg" p={0} px={{ base: "xs", xs: "lg" }}>
+    <Container size="lg" p={0} px={{ base: 5, xs: "lg" }}>
       <Stack gap={5} align="center">
         <div className="hArea">
           <h1>PokeMatch</h1>
