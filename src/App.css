@@ -47,12 +47,28 @@ h1 {
 }
 .card-container {
     display: grid;
-    grid-template-columns: repeat(4, minmax(180px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(4, minmax(140px, 1fr));
+    gap: 0.75rem;
     padding: 0;
     margin: 1rem auto;
     max-width: 1000px;
     justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: repeat(4, minmax(120px, 1fr));
+        gap: 0.5rem;
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-container {
+        grid-template-columns: repeat(4, minmax(80px, 1fr));
+        gap: 0.25rem;
+        padding: 0.25rem;
+    }
 }
 
 @keyframes logo-spin {
@@ -71,11 +87,11 @@ h1 {
 }
 
 .card {
-    padding: 1.25rem;
-    width: 180px;
-    height: 240px;
+    padding: 0.75rem;
+    width: 140px;
+    height: 180px;
     position: relative;
-    border-radius: 12px;
+    border-radius: 8px;
     background: rgba(30, 30, 30, 0.6);
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(8px);
@@ -90,6 +106,22 @@ h1 {
     cursor: pointer;
     transition: all 0.3s ease;
     margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 120px;
+        height: 160px;
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 80px;
+        height: 120px;
+        padding: 0.25rem;
+    }
 }
 
 .card-flipped {
@@ -168,20 +200,34 @@ h1 {
     animation: matchSuccess 2s ease infinite;
 }
 .card h3 {
-    margin: 0.5rem;
-    margin-bottom: 0.5rem;
-    font-size: 1.3rem;
+    margin: 0.25rem;
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
     color: rgba(255, 255, 255, 0.95);
     font-family: "Bricolage Grotesque", sans-serif;
     font-weight: 600;
 }
 
+@media (max-width: 480px) {
+    .card h3 {
+        font-size: 0.75rem;
+        margin: 0.125rem;
+    }
+}
+
 .card p {
     margin: 0.25rem 0;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.8);
     font-family: "Raleway", sans-serif;
     font-weight: 500;
+}
+
+@media (max-width: 480px) {
+    .card p {
+        font-size: 0.7rem;
+        margin: 0.125rem 0;
+    }
 }
 
 .read-the-docs {

@@ -70,6 +70,13 @@ export default function Card({ id, isFlipped, onFlip, found, cardBack }) {
                 <img
                   src={pokemonData.sprites.front_default}
                   alt={`Pokemon ${id}`}
+                  style={{
+                    width: "auto",
+                    height: "auto",
+                    maxWidth: "80%",
+                    maxHeight: "40%",
+                    objectFit: "contain",
+                  }}
                 />
                 <p className="type">type: {pokemonData.types[0].type.name}</p>
               </>
@@ -82,6 +89,13 @@ export default function Card({ id, isFlipped, onFlip, found, cardBack }) {
             src={cardBack || pokeballIcon}
             className="cardBack"
             alt="Card Back"
+            style={{
+              width: "auto",
+              height: "auto",
+              maxWidth: "60%",
+              maxHeight: "60%",
+              objectFit: "contain",
+            }}
           />
         </div>
       )}
