@@ -241,6 +241,7 @@ h1 {
 .card.found {
     animation: matchSuccess 2s ease infinite;
 }
+
 .card h3 {
     margin: 0.25rem;
     margin-bottom: 0.15rem;

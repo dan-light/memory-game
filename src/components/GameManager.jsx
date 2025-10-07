@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Container, Title, Group, Text, Paper, Stack } from "@mantine/core";
+import { useReward } from "react-rewards";
 import PrefPane from "./PrefPane";
 import Card from "./Card";
 import pokeballIcon from "../assets/Poke_Ball_icon.svg";
@@ -47,6 +47,11 @@ function getRandomPokemonId(gens) {
 }
 
 export default function GameManager() {
+  const { reward: triggerConfetti } = useReward("rewardId", "confetti", {
+    elementCount: 200,
+    spread: 160,
+    decay: 0.95,
+  });
   const [score, setScore] = useState(0);
   const [board, setBoard] = useState([]);
   const [flippedCards, setFlippedCards] = useState([]); // currently flipped cards
@@ -84,6 +89,9 @@ export default function GameManager() {
     }));
     makeBoard(newCards);
     setMoves(0);
+    setScore(0);
+    setGameOver(false);
+    setMatchedPairs([]);
     setFlippedCards([]);
   }, [gens]);
 
@@ -102,14 +110,17 @@ export default function GameManager() {
                 : card,
             ),
           );
-          setMatchedPairs((prev) => [...prev, card1.id]);
-          setScore(score + 1);
-
-          // Check for game over
-          if (matchedPairs.length + 1 === 8) {
-            // 8 pairs total
-            setGameOver(true);
-          }
+          setMatchedPairs((prev) => {
+            const newPairs = [...prev, card1.id];
+            console.log("Matched pairs:", newPairs.length);
+            if (newPairs.length === 8) {
+              console.log("Game completed!");
+              setGameOver(true);
+              setTimeout(() => triggerConfetti(), 300);
+            }
+            return newPairs;
+          });
+          setScore((prevScore) => prevScore + 1);
         }
         setMoves(moves + 1);
         resetBoard();
@@ -206,9 +217,12 @@ export default function GameManager() {
           </Text>
         </Group>
         {gameOver && (
-          <Title order={2} c="green.6">
-            Congratulations! Game Complete!
-          </Title>
+          <div>
+            <Title order={2} c="green.6" style={{ marginBottom: "1rem" }}>
+              Congratulations! Game Complete!
+            </Title>
+            <span id="rewardId" />
+          </div>
         )}
       </Stack>
     </Container>
