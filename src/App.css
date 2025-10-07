@@ -25,6 +25,9 @@ body {
     padding: 0.1rem 1rem 0;
     text-align: center;
     overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 @media (max-width: 480px) {
@@ -73,8 +76,8 @@ h1 {
 
 @media (max-width: 480px) {
     .card-container {
-        grid-template-columns: repeat(4, 80px);
-        gap: 0.5rem;
+        grid-template-columns: repeat(4, 75px);
+        gap: 0.35rem;
         padding: 0.25rem;
         margin: 0.5rem auto;
     }
@@ -127,8 +130,8 @@ h1 {
 
 @media (max-width: 480px) {
     .card {
-        width: 80px;
-        height: 120px;
+        width: 75px;
+        height: 110px;
         padding: 0.25rem;
     }
 }
@@ -220,8 +223,8 @@ h1 {
 
 @media (max-width: 480px) {
     .card h3 {
-        font-size: 0.65rem;
-        margin: 0.2rem;
+        font-size: 0.6rem;
+        margin: 0.1rem;
         padding: 0;
     }
 }
@@ -239,7 +242,6 @@ h1 {
     .card p.type {
         font-size: 0.45rem;
         margin: 0.1rem 0;
-        padding: 0;
     }
 }
 
