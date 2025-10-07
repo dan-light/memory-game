@@ -174,8 +174,8 @@ export default function GameManager() {
   }
 
   return (
-    <Container size="lg" py="xs">
-      <Stack gap="xs" align="center">
+    <Container size="lg" p={0} px={{ base: "xs", xs: "lg" }}>
+      <Stack gap={5} align="center">
         <div className="hArea">
           <h1>PokeMatch</h1>
           <PrefPane
@@ -185,7 +185,7 @@ export default function GameManager() {
             onCardBackChange={setSelectedCardBack}
           />
         </div>
-        <Paper p="md" radius="lg" className="card-container">
+        <Paper p={5} radius="lg" className="card-container">
           {board.map((card) => (
             <Card
               key={card.key}
@@ -197,7 +197,7 @@ export default function GameManager() {
             />
           ))}
         </Paper>
-        <Group gap="xl" justify="center">
+        <Group gap="md" justify="center">
           <Text size="xl" fw={700}>
             Score: {score}
           </Text>
