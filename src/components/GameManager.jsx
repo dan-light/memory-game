@@ -174,8 +174,8 @@ export default function GameManager() {
   }
 
   return (
-    <Container size="lg" py="xl">
-      <Stack gap="m" align="center">
+    <Container size="lg" py="xs">
+      <Stack gap="xs" align="center">
         <div className="hArea">
           <h1>PokeMatch</h1>
           <PrefPane

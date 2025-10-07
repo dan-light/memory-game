@@ -73,9 +73,10 @@ export default function Card({ id, isFlipped, onFlip, found, cardBack }) {
                   style={{
                     width: "auto",
                     height: "auto",
-                    maxWidth: "80%",
-                    maxHeight: "40%",
+                    maxWidth: "75%",
+                    maxHeight: "45%",
                     objectFit: "contain",
+                    margin: "0.1rem 0",
                   }}
                 />
                 <p className="type">type: {pokemonData.types[0].type.name}</p>
@@ -92,9 +93,10 @@ export default function Card({ id, isFlipped, onFlip, found, cardBack }) {
             style={{
               width: "auto",
               height: "auto",
-              maxWidth: "60%",
-              maxHeight: "60%",
+              maxWidth: "55%",
+              maxHeight: "55%",
               objectFit: "contain",
+              margin: "0.1rem 0",
             }}
           />
         </div>
