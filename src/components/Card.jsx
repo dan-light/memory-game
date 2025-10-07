@@ -33,11 +33,19 @@ export default function Card({ id, isFlipped, onFlip, found }) {
 
       // If not in cache, fetch from API
       try {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+        const response = await fetch(
+          `http://werdna.duckdns.org:6969/api/v2/pokemon/${id}`,
+        );
         const data = await response.json();
 
         // Cache the data
-        addToCache(id, data);
+        try {
+          addToCache(id, data);
+        } catch (error) {
+          if (error.name === "QuotaExceededError") {
+            localStorage.clear();
+          }
+        }
         setPokemonData(data);
       } catch (error) {
         console.error("Error fetching Pokémon:", error);

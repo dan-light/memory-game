@@ -1,7 +1,39 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import PrefPane from "./PrefPane";
 import Card from "./Card";
 
+const genIdRanges = {
+  gen1: { start: 1, end: 151 }, // Pokémon Red/Blue/Yellow
+  gen2: { start: 152, end: 251 }, // Pokémon Gold/Silver/Crystal
+  gen3: { start: 252, end: 386 }, // Pokémon Ruby/Sapphire/Emerald
+  gen4: { start: 387, end: 493 }, // Pokémon Diamond/Pearl/Platinum
+  gen5: { start: 494, end: 649 }, // Pokémon Black/White
+  gen6: { start: 650, end: 721 }, // Pokémon X/Y
+};
+
+function getRandomPokemonId(gens) {
+  // Get all enabled generation ranges
+  const enabledRanges = Object.entries(gens)
+    .filter(([gen, isEnabled]) => isEnabled)
+    .map(([gen]) => genIdRanges[gen]);
+
+  if (enabledRanges.length === 0) {
+    return 25; // Default to Pikachu if no generations selected
+  }
+
+  // Flatten ranges into one array of possible IDs
+  const possibleIds = enabledRanges.flatMap((range) =>
+    Array.from(
+      { length: range.end - range.start + 1 },
+      (_, i) => range.start + i,
+    ),
+  );
+
+  // Get random ID from possible IDs
+  const randomIndex = Math.floor(Math.random() * possibleIds.length);
+  return possibleIds[randomIndex];
+}
 export default function GameManager() {
   const [score, setScore] = useState(0);
   const [board, setBoard] = useState([]);
@@ -9,15 +41,24 @@ export default function GameManager() {
   const [matchedPairs, setMatchedPairs] = useState([]); // pairs that have been matched
   const [moves, setMoves] = useState(0); // track number of attempts
   const [gameOver, setGameOver] = useState(false); // is the game complete?
+  const [gens, setGens] = useState({
+    gen1: true,
+    gen2: true,
+    gen3: true,
+    gen4: true,
+    gen5: true,
+    gen6: true,
+  });
+
+  // Debug log whenever gens changes
+  useEffect(() => {
+    localStorage.clear();
+    console.log("GameManager gens:", gens);
+  }, [gens]);
 
   useEffect(() => {
     // Initialize cards
-    const min = 1;
-    const max = 950;
-    const arr = Array.from(
-      { length: 8 },
-      () => Math.floor(Math.random() * (max - min + 1)) + min,
-    );
+    const arr = Array.from({ length: 8 }, () => getRandomPokemonId(gens));
     // arr now contains 8 random integers between 1 and 950 (inclusive)
     const newCards = arr.map((index) => ({
       id: index,
@@ -26,7 +67,7 @@ export default function GameManager() {
       key: crypto.randomUUID(),
     }));
     makeBoard(newCards);
-  }, []);
+  }, [gens]);
 
   useEffect(() => {
     if (flippedCards.length === 2) {
@@ -34,7 +75,7 @@ export default function GameManager() {
         const card1 = getCardByKey(flippedCards[0]);
         const card2 = getCardByKey(flippedCards[1]);
 
-        if (card1.id === card2.id) {
+        if (card1.id === card2.id && card1.key !== card2.key) {
           // It's a match!
           setBoard((prevBoard) =>
             prevBoard.map((card) =>
@@ -57,7 +98,7 @@ export default function GameManager() {
         setFlippedCards([]);
       }, 1000);
     }
-  }, [flippedCards, score, moves, matchedPairs]);
+  }, [flippedCards, matchedPairs]);
 
   function makeBoard(cards) {
     // make a board array out of 8 unique cards
@@ -95,6 +136,9 @@ export default function GameManager() {
     const card = getCardByKey(key);
     if (card.found) return;
 
+    // Prevent flipping if card is already flipped
+    if (card.flipped) return;
+
     setBoard((prevCards) =>
       prevCards.map((card) =>
         card.key === key ? { ...card, flipped: true } : card,
@@ -130,6 +174,7 @@ export default function GameManager() {
         <p>Moves: {moves}</p>
         {gameOver && <h2>Congratulations! Game Complete!</h2>}
       </div>
+      <PrefPane gens={gens} onGenChange={setGens} />
     </div>
   );
 }

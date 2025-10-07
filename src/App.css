@@ -152,6 +152,22 @@ h1 {
     font-size: 0.8rem;
 }
 
+.pref-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.pref-item label {
+    font-weight: bold;
+}
+
+.pref-item input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
 .read-the-docs {
     color: #888;
 }
