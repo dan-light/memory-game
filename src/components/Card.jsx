@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import pokeballIcon from "../assets/Poke_ball_icon.svg";
+import pokeballIcon from "../assets/Poke_Ball_icon.svg";
 
 function cacheKey(id) {
   return `pokemon_${id}`;

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Container, Title, Group, Text, Paper, Stack } from "@mantine/core";
 import PrefPane from "./PrefPane";
 import Card from "./Card";
-import pokeballIcon from "../assets/Poke_ball_icon.svg";
+import pokeballIcon from "../assets/Poke_Ball_icon.svg";
 import gymBadgeIcon from "../assets/gymbadge.png";
 
 const genIdRanges = {
