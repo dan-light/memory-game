@@ -3,6 +3,9 @@ import { useEffect } from "react";
 import { Container, Title, Group, Text, Paper, Stack } from "@mantine/core";
 import PrefPane from "./PrefPane";
 import Card from "./Card";
+import pokeballIcon from "../assets/Poke_ball_icon.svg";
+import gymBadgeIcon from "../assets/gymbadge.png";
+
 const genIdRanges = {
   gen1: { start: 1, end: 151 }, // Pokémon Red/Blue/Yellow
   gen2: { start: 152, end: 251 }, // Pokémon Gold/Silver/Crystal
@@ -16,8 +19,8 @@ const genIdRanges = {
 };
 
 const cardBacks = {
-  pokeball: "/src/assets/Poke_ball_icon.svg",
-  gymbadge: "/src/assets/gymbadge.png",
+  pokeball: pokeballIcon,
+  gymbadge: gymBadgeIcon,
 };
 
 function getRandomPokemonId(gens) {
@@ -42,6 +45,7 @@ function getRandomPokemonId(gens) {
   const randomIndex = Math.floor(Math.random() * possibleIds.length);
   return possibleIds[randomIndex];
 }
+
 export default function GameManager() {
   const [score, setScore] = useState(0);
   const [board, setBoard] = useState([]);
@@ -187,9 +191,7 @@ export default function GameManager() {
               isFlipped={card.flipped || card.found}
               found={card.found}
               onFlip={() => handleFlip(card.key)}
-              cardBack={
-                cardBacks[selectedCardBack] || "/src/assets/Poke_ball_icon.svg"
-              }
+              cardBack={cardBacks[selectedCardBack] || pokeballIcon}
             />
           ))}
         </Paper>
